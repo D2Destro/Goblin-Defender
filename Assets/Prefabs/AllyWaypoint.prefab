@@ -789,6 +789,7 @@ GameObject:
   - component: {fileID: 114563475173904090}
   - component: {fileID: 114721162911986450}
   - component: {fileID: 114231775971921494}
+  - component: {fileID: 114593978061233360}
   m_Layer: 12
   m_Name: AllyPrefab
   m_TagString: Untagged
@@ -1698,7 +1699,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1612778144212014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 160.3, y: 22.9, z: 261.43}
+  m_LocalPosition: {x: 161.38, y: 22.76, z: 259.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4890317484529228}
@@ -2872,6 +2873,21 @@ MonoBehaviour:
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.2
+--- !u!114 &114593978061233360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612778144212014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7abb3b3c7970474d8f5a550ce9ea0b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePerSecond: 1
+  ball: {fileID: 1960170491445166, guid: 53bf4c62ada0555458d02410c6a6ba44, type: 2}
+  target: {fileID: 0}
+  firepower: 50
 --- !u!114 &114627703651773882
 MonoBehaviour:
   m_ObjectHideFlags: 1

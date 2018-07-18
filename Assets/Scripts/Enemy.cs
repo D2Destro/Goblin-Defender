@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour {
     private int layerMask; // building layermask (fort)
     private Spawner spawner;
     private bool isAlive = true;
+    private TargetManager targetManager;
 
 
 	// Use this for initialization
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour {
         spawner = GameObject.FindObjectOfType<Spawner>().GetComponent<Spawner>();
         animator = GetComponent<Animator>();
         layerMask = LayerMask.GetMask("Building");
+        targetManager = GameObject.FindObjectOfType<TargetManager>().GetComponent<TargetManager>();
 
         List<Transform> targets_ = GameObject.FindGameObjectWithTag("Wall").GetComponentsInChildren<Transform>().ToList();
         targets_.RemoveAt(0);
@@ -69,7 +71,9 @@ public class Enemy : MonoBehaviour {
             spawner.CurrentEnemiesAmount -= 1;
             fort.addScore(1);
             isAlive = false;
+            if (targetManager.targets.Find(x => x == gameObject) == gameObject) targetManager.targets.Remove(gameObject);
 
+            StartCoroutine("deathDelay");
         }
     }
 
@@ -96,5 +100,16 @@ public class Enemy : MonoBehaviour {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * attackDistance, Color.white);
             //Debug.Log("Did not Hit");
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        
+    }
+
+    IEnumerator deathDelay()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        Destroy(gameObject);
     }
 }

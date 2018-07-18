@@ -17,19 +17,29 @@ public class WaypointFollow : MonoBehaviour {
 
     private UnityStandardAssets.Characters.ThirdPerson.AICharacterControl  aicc;
     private Ally ally;
+    private AllyShoot allyShoot;
+    private TargetManager targetManager;
 
     // Use this for initialization
 	void Start () {
+        targetManager = GameObject.FindObjectOfType<TargetManager>().GetComponent<TargetManager>();
         aicc = GetComponent<UnityStandardAssets.Characters.ThirdPerson.AICharacterControl>();
+        allyShoot = GetComponent<AllyShoot>();
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
         if (circuit.Waypoints.Length == 0) return;
 
-        
 
-        
+        if (targetManager.targets.Count <= 0 && isAttackingEnemy)
+        {
+            aicc.agent.Resume(); // resume the agent movement after finished attack
+            isAttackingEnemy = false;
+            Debug.Log("test");
+
+        }
+
         if (!isAttackingEnemy)
         {
             aicc.target = circuit.Waypoints[currentWP];
@@ -45,7 +55,11 @@ public class WaypointFollow : MonoBehaviour {
             if (direction.magnitude < acc) //reach target position
             {
                 currentWP++;
-                StartCoroutine("AttackEnemy"); // attack
+                if (targetManager.targets.Count > 0)
+                {
+                    StartCoroutine("AttackEnemy"); // attack
+
+                }
                 if (currentWP >= circuit.Waypoints.Length)
                 {
                     currentWP = 0;
@@ -70,10 +84,12 @@ public class WaypointFollow : MonoBehaviour {
         //on progress
 
         //ally.Attack();
-        yield return new WaitForSecondsRealtime(3f);
 
-        aicc.agent.Resume(); // resume the agent movement after finished attack
-        isAttackingEnemy = false;
+        // if no enemy in target area 
+        
+
+        yield return new WaitForSecondsRealtime(0f);
+        
         
 
 

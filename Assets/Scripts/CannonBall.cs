@@ -28,7 +28,7 @@ public class CannonBall : MonoBehaviour
 
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (Input.GetMouseButton(1)) camera.fieldOfView = 30f;
         else camera.fieldOfView = defaultFOV;
